@@ -1,187 +1,117 @@
-/*
- * Página Perfil y ajustes:
- *  - formulario para guardar tarjetas (solo alias y últimos 4 dígitos)
- *  - interruptor de exenciones impositivas
- */
 (function () {
   "use strict";
-
   var U = window.USDecide;
-
-  var formTarjeta = document.getElementById("formTarjeta");
-  var campoAlias = document.getElementById("alias");
-  var campoTipo = document.getElementById("tipo");
-  var campoUltimos = document.getElementById("ultimos4");
-  var mensajeTarjeta = document.getElementById("mensajeTarjeta");
-  var listaTarjetas = document.getElementById("listaTarjetas");
-  var sinTarjetas = document.getElementById("sinTarjetas");
-
-  var formPrefs = document.getElementById("formPrefs");
-  var interruptor = document.getElementById("exencion");
-  var mensajePrefs = document.getElementById("mensajePrefs");
-
+  var CLAVE_CUENTA = "usdecide.cuenta.demo";
+  var CLAVE_MEDIOS = "usdecide.medios.demo";
+  var acceso = document.getElementById("accesoCuenta");
+  var panel = document.getElementById("panelCuenta");
+  var formCuenta = document.getElementById("formCuenta");
+  var modoRegistro = document.getElementById("modoRegistro");
+  var modoIngreso = document.getElementById("modoIngreso");
+  var campoNombre = document.getElementById("campoNombre");
+  var nombre = document.getElementById("nombreCuenta");
+  var email = document.getElementById("emailCuenta");
+  var clave = document.getElementById("claveCuenta");
+  var mensajeCuenta = document.getElementById("mensajeCuenta");
+  var modo = "registro";
   var prefs = U.leerPreferencias();
+  var cuenta = leer(CLAVE_CUENTA);
 
-  var NOMBRES_TIPO = {
-    credito: "Crédito",
-    debito: "Débito",
-    prepaga: "Prepaga",
-    billetera: "Billetera virtual"
-  };
-
-  /* ---------- Mensajes ---------- */
-
-  function mostrar(nodo, tipo, texto) {
+  function leer(claveDato) {
+    try { return JSON.parse(localStorage.getItem(claveDato) || "null"); }
+    catch (e) { return null; }
+  }
+  function guardar(claveDato, dato) {
+    try { localStorage.setItem(claveDato, JSON.stringify(dato)); return true; }
+    catch (e) { return false; }
+  }
+  function aviso(nodo, tipo, texto) {
     nodo.className = "aviso aviso-" + tipo + " mb-3";
     nodo.textContent = texto;
     nodo.hidden = false;
   }
-
-  /* ---------- Validación de cada campo ---------- */
-
-  // Cada validador devuelve un texto de error o "" si el campo es válido.
-  var validadores = {
-    alias: function (valor) {
-      var v = valor.trim();
-      if (v === "") return "Ponele un alias a la tarjeta, por ejemplo “Visa del banco”.";
-      if (v.length < 3) return "El alias tiene que tener al menos 3 caracteres.";
-      if (v.length > 20) return "El alias puede tener hasta 20 caracteres.";
-      if (!/^[\p{L}\p{N} ]+$/u.test(v)) return "Usá solo letras, números y espacios.";
-      return "";
-    },
-    tipo: function (valor) {
-      return valor === "" ? "Elegí el tipo de tarjeta." : "";
-    },
-    ultimos4: function (valor) {
-      var v = valor.trim();
-      if (v === "") return "Ingresá los últimos 4 dígitos.";
-      if (!/^\d{4}$/.test(v)) return "Son exactamente 4 números, sin espacios.";
-      return "";
-    }
-  };
-
-  function validarCampo(campo) {
-    var error = validadores[campo.name](campo.value);
-    var contenedorError = document.getElementById("error-" + campo.id);
-    contenedorError.textContent = error;
-
-    campo.classList.toggle("is-invalid", error !== "");
-    campo.classList.toggle("is-valid", error === "");
-    campo.setAttribute("aria-invalid", error !== "" ? "true" : "false");
-    return error === "";
+  function cambiarModo(nuevoModo) {
+    modo = nuevoModo;
+    var registro = modo === "registro";
+    campoNombre.hidden = !registro;
+    nombre.required = registro;
+    modoRegistro.className = registro ? "btn btn-usd flex-fill" : "btn btn-usd-outline flex-fill";
+    modoIngreso.className = registro ? "btn btn-usd-outline flex-fill" : "btn btn-usd flex-fill";
+    modoRegistro.setAttribute("aria-pressed", String(registro));
+    modoIngreso.setAttribute("aria-pressed", String(!registro));
+    document.getElementById("tituloAcceso").textContent = registro ? "Creá tu cuenta demo" : "Ingresá a tu cuenta";
+    document.getElementById("botonCuenta").textContent = registro ? "Crear mi cuenta" : "Iniciar sesión";
+    clave.autocomplete = registro ? "new-password" : "current-password";
+    mensajeCuenta.hidden = true;
   }
-
-  var campos = [campoAlias, campoTipo, campoUltimos];
-  var intentoEnviar = false;
-
-  campos.forEach(function (campo) {
-    campo.addEventListener("blur", function () {
-      if (campo.value !== "" || intentoEnviar) validarCampo(campo);
-    });
-    campo.addEventListener("input", function () {
-      if (intentoEnviar || campo.classList.contains("is-invalid")) validarCampo(campo);
-    });
-  });
-
-  // Solo permite escribir dígitos en el campo de últimos 4.
-  campoUltimos.addEventListener("input", function () {
-    campoUltimos.value = campoUltimos.value.replace(/\D/g, "").slice(0, 4);
-  });
-
-  /* ---------- Lista de tarjetas guardadas ---------- */
-
-  function dibujarTarjetas() {
-    listaTarjetas.textContent = "";
-    sinTarjetas.hidden = prefs.tarjetas.length > 0;
-
-    prefs.tarjetas.forEach(function (t, indice) {
-      var item = U.el("li", "tarjeta-guardada");
-
-      var texto = U.el("div", "");
-      texto.appendChild(U.el("strong", "d-block", t.alias));
-      texto.appendChild(
-        U.el("span", "text-muted-usd", (NOMBRES_TIPO[t.tipo] || t.tipo) + " · **** " + t.ultimos4)
-      );
-
-      var borrar = U.el("button", "btn btn-usd-outline btn-sm", "Quitar");
-      borrar.type = "button";
-      borrar.setAttribute("aria-label", "Quitar la tarjeta " + t.alias);
-      borrar.addEventListener("click", function () {
-        prefs.tarjetas.splice(indice, 1);
-        U.guardarPreferencias(prefs);
-        dibujarTarjetas();
-        mostrar(mensajeTarjeta, "ok", "Quitaste la tarjeta “" + t.alias + "”.");
+  function mostrarPanel() {
+    acceso.hidden = true;
+    panel.hidden = false;
+    document.getElementById("saludoCuenta").textContent = "¡Hola, " + cuenta.nombre + "!";
+    document.getElementById("emailPerfil").textContent = cuenta.email;
+    cargarMedios();
+    document.getElementById("exencion").checked = prefs.exencion;
+  }
+  function cargarMedios() {
+    var medios = leer(CLAVE_MEDIOS) || {};
+    document.getElementById("banco").value = medios.banco || "";
+    document.getElementById("billetera").value = medios.billetera || "";
+    ["tipoTarjeta", "marcaTarjeta"].forEach(function (grupo) {
+      document.querySelectorAll('input[name="' + grupo + '"]').forEach(function (c) {
+        c.checked = Array.isArray(medios[grupo]) && medios[grupo].indexOf(c.value) !== -1;
       });
-
-      item.appendChild(texto);
-      item.appendChild(borrar);
-      listaTarjetas.appendChild(item);
     });
   }
-
-  /* ---------- Envío del formulario de tarjeta ---------- */
-
-  formTarjeta.addEventListener("submit", function (evento) {
+  modoRegistro.addEventListener("click", function () { cambiarModo("registro"); });
+  modoIngreso.addEventListener("click", function () { cambiarModo("ingreso"); });
+  formCuenta.addEventListener("submit", function (evento) {
     evento.preventDefault();
-    intentoEnviar = true;
-
-    var todoValido = campos.map(validarCampo).every(Boolean);
-
-    if (!todoValido) {
-      mostrar(mensajeTarjeta, "error", "Hay campos para corregir. Revisá los mensajes en rojo.");
-      var primerError = formTarjeta.querySelector(".is-invalid");
-      if (primerError) primerError.focus();
-      return;
+    var correo = email.value.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+      aviso(mensajeCuenta, "error", "Ingresá un correo electrónico válido."); email.focus(); return;
     }
-
-    if (prefs.tarjetas.length >= 5) {
-      mostrar(mensajeTarjeta, "error", "Podés guardar hasta 5 tarjetas. Quitá una para agregar otra.");
-      return;
+    if (clave.value.length < 6) {
+      aviso(mensajeCuenta, "error", "La contraseña demo debe tener al menos 6 caracteres."); clave.focus(); return;
     }
-
-    prefs.tarjetas.push({
-      alias: campoAlias.value.trim(),
-      tipo: campoTipo.value,
-      ultimos4: campoUltimos.value.trim()
-    });
-
-    if (!U.guardarPreferencias(prefs)) {
-      prefs.tarjetas.pop();
-      mostrar(mensajeTarjeta, "error", "No pudimos guardar la tarjeta. Revisá que el navegador permita guardar datos del sitio.");
-      return;
-    }
-
-    formTarjeta.reset();
-    intentoEnviar = false;
-    campos.forEach(function (c) {
-      c.classList.remove("is-valid", "is-invalid");
-      c.removeAttribute("aria-invalid");
-    });
-    dibujarTarjetas();
-    mostrar(mensajeTarjeta, "ok", "Tarjeta guardada. Solo se guardaron el alias y los últimos 4 dígitos.");
-  });
-
-  /* ---------- Preferencias (interruptor de exenciones) ---------- */
-
-  formPrefs.addEventListener("submit", function (evento) {
-    evento.preventDefault();
-    prefs.exencion = interruptor.checked;
-
-    if (U.guardarPreferencias(prefs)) {
-      mostrar(
-        mensajePrefs,
-        "ok",
-        prefs.exencion
-          ? "Preferencias guardadas: los cálculos van a considerar tus exenciones."
-          : "Preferencias guardadas: los cálculos van a incluir las percepciones completas."
-      );
+    if (modo === "registro") {
+      var nombreIngresado = nombre.value.trim();
+      if (nombreIngresado.length < 2) {
+        aviso(mensajeCuenta, "error", "Ingresá tu nombre para crear la cuenta."); nombre.focus(); return;
+      }
+      cuenta = { nombre: nombreIngresado, email: correo };
+      if (!guardar(CLAVE_CUENTA, cuenta)) {
+        aviso(mensajeCuenta, "error", "No se pudo crear la cuenta demo en este navegador."); return;
+      }
+      aviso(mensajeCuenta, "ok", "Cuenta demo creada. Tus preferencias quedan guardadas en este navegador.");
     } else {
-      mostrar(mensajePrefs, "error", "No pudimos guardar tus preferencias. Revisá que el navegador permita guardar datos del sitio.");
+      if (!cuenta || cuenta.email !== correo) {
+        aviso(mensajeCuenta, "error", "No encontramos una cuenta demo con ese correo. Creá una cuenta primero."); return;
+      }
+      aviso(mensajeCuenta, "ok", "Sesión demo iniciada.");
     }
+    clave.value = "";
+    window.setTimeout(mostrarPanel, 350);
   });
-
-  /* ---------- Inicio ---------- */
-
-  interruptor.checked = prefs.exencion;
-  dibujarTarjetas();
+  document.getElementById("cerrarSesion").addEventListener("click", function () {
+    panel.hidden = true; acceso.hidden = false; formCuenta.reset(); cambiarModo("ingreso");
+  });
+  document.getElementById("formMedios").addEventListener("submit", function (evento) {
+    evento.preventDefault();
+    var medios = {
+      banco: document.getElementById("banco").value,
+      billetera: document.getElementById("billetera").value,
+      tipoTarjeta: Array.from(document.querySelectorAll('input[name="tipoTarjeta"]:checked')).map(function (c) { return c.value; }),
+      marcaTarjeta: Array.from(document.querySelectorAll('input[name="marcaTarjeta"]:checked')).map(function (c) { return c.value; })
+    };
+    aviso(document.getElementById("mensajeMedios"), guardar(CLAVE_MEDIOS, medios) ? "ok" : "error",
+      localStorage ? "Preferencias de medios guardadas en este navegador." : "No se pudieron guardar los medios.");
+  });
+  document.getElementById("formPrefs").addEventListener("submit", function (evento) {
+    evento.preventDefault();
+    prefs.exencion = document.getElementById("exencion").checked;
+    aviso(document.getElementById("mensajePrefs"), U.guardarPreferencias(prefs) ? "ok" : "error",
+      "Preferencias de cálculo actualizadas.");
+  });
+  if (cuenta && cuenta.nombre && cuenta.email) mostrarPanel();
+  else cambiarModo("registro");
 })();
