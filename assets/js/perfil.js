@@ -108,8 +108,13 @@
       marcaTarjeta: Array.from(document.querySelectorAll('input[name="marcaTarjeta"]:checked')).map(function (c) { return c.value; })
     };
     var guardado = guardar(CLAVE_MEDIOS, medios);
+    prefs.banco = medios.banco;
+    prefs.billetera = medios.billetera;
+    prefs.tipoTarjeta = medios.tipoTarjeta;
+    prefs.marcaTarjeta = medios.marcaTarjeta;
+    guardado = U.guardarPreferencias(prefs) && guardado;
     aviso(document.getElementById("mensajeMedios"), guardado ? "ok" : "error",
-      guardado ? "Preferencias de medios guardadas en este navegador." : "No se pudieron guardar los medios.");
+      guardado ? "Listo. En la comparativa vamos a destacar los medios que coinciden con tus preferencias." : "No se pudieron guardar los medios.");
   });
   document.getElementById("formPrefs").addEventListener("submit", function (evento) {
     evento.preventDefault();
