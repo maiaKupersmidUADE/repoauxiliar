@@ -16,6 +16,7 @@
   var modo = "registro";
   var prefs = U.leerPreferencias();
   var cuenta = leer(CLAVE_CUENTA);
+  var sesionActiva = false;
 
   function leer(claveDato) {
     try { return JSON.parse(localStorage.getItem(claveDato) || "null"); }
@@ -90,10 +91,13 @@
       aviso(mensajeCuenta, "ok", "Sesión demo iniciada.");
     }
     clave.value = "";
+    try { sessionStorage.setItem("usdecide.sesion.demo", "activa"); } catch (e) {}
     window.setTimeout(mostrarPanel, 350);
   });
   document.getElementById("cerrarSesion").addEventListener("click", function () {
-    panel.hidden = true; acceso.hidden = false; formCuenta.reset(); cambiarModo("ingreso");
+    panel.hidden = true; acceso.hidden = false; formCuenta.reset();
+    try { sessionStorage.removeItem("usdecide.sesion.demo"); } catch (e) {}
+    cambiarModo("ingreso");
   });
   document.getElementById("formMedios").addEventListener("submit", function (evento) {
     evento.preventDefault();
@@ -103,8 +107,9 @@
       tipoTarjeta: Array.from(document.querySelectorAll('input[name="tipoTarjeta"]:checked')).map(function (c) { return c.value; }),
       marcaTarjeta: Array.from(document.querySelectorAll('input[name="marcaTarjeta"]:checked')).map(function (c) { return c.value; })
     };
-    aviso(document.getElementById("mensajeMedios"), guardar(CLAVE_MEDIOS, medios) ? "ok" : "error",
-      localStorage ? "Preferencias de medios guardadas en este navegador." : "No se pudieron guardar los medios.");
+    var guardado = guardar(CLAVE_MEDIOS, medios);
+    aviso(document.getElementById("mensajeMedios"), guardado ? "ok" : "error",
+      guardado ? "Preferencias de medios guardadas en este navegador." : "No se pudieron guardar los medios.");
   });
   document.getElementById("formPrefs").addEventListener("submit", function (evento) {
     evento.preventDefault();
@@ -112,6 +117,7 @@
     aviso(document.getElementById("mensajePrefs"), U.guardarPreferencias(prefs) ? "ok" : "error",
       "Preferencias de cálculo actualizadas.");
   });
-  if (cuenta && cuenta.nombre && cuenta.email) mostrarPanel();
-  else cambiarModo("registro");
+  try { sesionActiva = sessionStorage.getItem("usdecide.sesion.demo") === "activa"; } catch (e) {}
+  if (sesionActiva && cuenta && cuenta.nombre && cuenta.email) mostrarPanel();
+  else cambiarModo(cuenta ? "ingreso" : "registro");
 })();
