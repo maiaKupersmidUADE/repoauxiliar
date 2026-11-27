@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mi perfil | USDecide</title>
-  <meta name="description" content="Guardá tus tarjetas y ajustá el cálculo según tus exenciones impositivas.">
+  <title>Mi cuenta | USDecide</title>
+  <meta name="description" content="Creá tu cuenta demo y personalizá tus medios de pago en USDecide.">
   <meta name="theme-color" content="#1A4D2E">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,110 +15,114 @@
 </head>
 <body>
   <a class="skip-link visually-hidden-focusable" href="#contenido">Saltar al contenido</a>
-
   <header>
     <nav class="navbar navbar-expand-lg navbar-usd" data-bs-theme="dark" aria-label="Navegación principal">
       <div class="container">
         <a class="navbar-brand" href="../index.html">US<span>Decide</span></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir o cerrar el menú"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="menuPrincipal">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="../index.html" >Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="calculadora.html" >Calculadora</a></li>
-            <li class="nav-item"><a class="nav-link" href="comparativa.html" >Comparativa</a></li>
-            <li class="nav-item"><a class="nav-link" href="como-funciona.html">Cómo funciona</a></li>
-            <li class="nav-item"><a class="nav-link" href="transparencia.html" >Transparencia</a></li>
-            <li class="nav-item"><a class="nav-link" href="perfil.html" aria-current="page">Mi perfil</a></li>
-          </ul>
-        </div>
+        <div class="d-none d-md-flex align-items-center ms-auto gap-2"><a class="nav-link" href="../index.html">Calcular</a><a class="nav-link" href="comparativa.html">Comparar</a><a class="nav-link" href="transparencia.html">Información</a></div>
       </div>
     </nav>
   </header>
-
   <main id="contenido">
     <div class="container py-4">
       <div class="contenedor-angosto">
-        <h1 class="mb-2">A tu manera</h1>
-        <p class="mb-4">Guardá los medios de pago que usás y ajustá el cálculo a tu situación. Todo queda guardado solo en este navegador.</p>
+        <p class="eyebrow">TU ESPACIO</p>
+        <h1 class="mb-2">Tu cuenta USDecide</h1>
+        <p class="mb-4">Guardá tus preferencias para tener tus medios de pago listos cada vez que calculás.</p>
 
-        <section class="usd-card mb-4" aria-labelledby="titulo-tarjetas">
-          <h2 id="titulo-tarjetas" class="h4">Tus tarjetas</h2>
-          <p class="small text-muted-usd">Solo guardamos el alias y los últimos 4 dígitos. Nunca el número completo ni el CVV.</p>
-
-          <p id="sinTarjetas" class="mb-3">Todavía no guardaste ninguna tarjeta.</p>
-          <ul class="lista-limpia mb-4" id="listaTarjetas" aria-live="polite"></ul>
-
-          <h3 class="h5">Agregar una tarjeta</h3>
-          <form id="formTarjeta" novalidate>
-            <div class="mb-3">
-              <label for="alias" class="form-label">Alias</label>
-              <input type="text" class="form-control" id="alias" name="alias" maxlength="20" autocomplete="off" required aria-describedby="error-alias">
-              <div class="invalid-feedback" id="error-alias"></div>
+        <section id="accesoCuenta" class="usd-card cuenta-card" aria-labelledby="tituloAcceso">
+          <div class="d-flex gap-2 mb-4" role="group" aria-label="Tipo de acceso">
+            <button type="button" class="btn btn-usd flex-fill" id="modoRegistro" aria-pressed="true">Crear cuenta</button>
+            <button type="button" class="btn btn-usd-outline flex-fill" id="modoIngreso" aria-pressed="false">Iniciar sesión</button>
+          </div>
+          <h2 id="tituloAcceso" class="h4 mb-2">Creá tu cuenta demo</h2>
+          <p class="small text-muted-usd mb-4">Es una simulación para este proyecto. No hay registro real ni se envían datos a un servidor.</p>
+          <form id="formCuenta" novalidate>
+            <div class="mb-3" id="campoNombre">
+              <label for="nombreCuenta" class="form-label">¿Cómo te llamás?</label>
+              <input class="form-control" type="text" id="nombreCuenta" autocomplete="name" maxlength="40" required>
             </div>
             <div class="mb-3">
-              <label for="tipo" class="form-label">Tipo de tarjeta</label>
-              <select class="form-select" id="tipo" name="tipo" required aria-describedby="error-tipo">
-                <option value="" selected>Elegí una opción</option>
-                <option value="credito">Crédito</option>
-                <option value="debito">Débito</option>
-                <option value="prepaga">Prepaga</option>
-                <option value="billetera">Billetera virtual</option>
-              </select>
-              <div class="invalid-feedback" id="error-tipo"></div>
+              <label for="emailCuenta" class="form-label">Correo electrónico</label>
+              <input class="form-control" type="email" id="emailCuenta" autocomplete="email" maxlength="80" placeholder="tu@email.com" required>
             </div>
             <div class="mb-3">
-              <label for="ultimos4" class="form-label">Últimos 4 dígitos</label>
-              <input type="text" class="form-control" id="ultimos4" name="ultimos4" inputmode="numeric" maxlength="4" autocomplete="off" required aria-describedby="ayuda-ultimos4 error-ultimos4">
-              <div id="ayuda-ultimos4" class="form-text">Solo los últimos 4 números, sin espacios.</div>
-              <div class="invalid-feedback" id="error-ultimos4"></div>
+              <label for="claveCuenta" class="form-label">Contraseña</label>
+              <input class="form-control" type="password" id="claveCuenta" autocomplete="new-password" minlength="6" required>
+              <div class="form-text">Solo para simular el acceso. No se guarda.</div>
             </div>
-            <div id="mensajeTarjeta" role="status" aria-live="polite" hidden></div>
-            <button type="submit" class="btn btn-usd w-100">Agregar tarjeta</button>
+            <div id="mensajeCuenta" class="aviso mb-3" role="status" aria-live="polite" hidden></div>
+            <button type="submit" class="btn btn-usd w-100" id="botonCuenta">Crear mi cuenta</button>
           </form>
         </section>
 
-        <section class="usd-card" aria-labelledby="titulo-prefs">
-          <h2 id="titulo-prefs" class="h4">Preferencias de cálculo</h2>
-          <form id="formPrefs">
-            <div class="form-check form-switch form-switch-grande mb-2">
-              <input class="form-check-input" type="checkbox" role="switch" id="exencion" aria-describedby="ayuda-exencion">
-              <label class="form-check-label" for="exencion">Tengo exenciones impositivas</label>
+        <section id="panelCuenta" hidden>
+          <div class="usd-card mb-3">
+            <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+              <div><p class="eyebrow mb-1">CUENTA DEMO</p><h2 class="h4 mb-1" id="saludoCuenta">Hola</h2><p class="small text-muted-usd mb-0" id="emailPerfil"></p></div>
+              <button type="button" class="btn btn-usd-outline btn-sm" id="cerrarSesion">Cerrar sesión</button>
             </div>
-            <p id="ayuda-exencion" class="small text-muted-usd mb-3">Si lo activás, el cálculo no suma percepciones en los medios donde corresponden.</p>
-            <div id="mensajePrefs" role="status" aria-live="polite" hidden></div>
-            <button type="submit" class="btn btn-usd w-100">Guardar preferencias</button>
-          </form>
+          </div>
+          <section class="usd-card mb-3" aria-labelledby="tituloMedios">
+            <h2 id="tituloMedios" class="h4">Mis medios de pago</h2>
+            <p class="small text-muted-usd">Elegí tu banco y las marcas de tarjeta que usás. No pedimos números de tarjeta, vencimiento ni código de seguridad.</p>
+            <form id="formMedios">
+              <div class="mb-3">
+                <label for="banco" class="form-label">Banco o entidad</label>
+                <select class="form-select" id="banco">
+                  <option value="">Seleccionar banco</option>
+                  <option>Banco Nación</option><option>Banco Galicia</option><option>Banco Santander</option><option>Banco BBVA</option><option>Banco Macro</option><option>Banco Ciudad</option><option>Banco Provincia</option><option>Brubank</option><option>Ualá</option><option>Mercado Pago</option><option>Otro / No especificar</option>
+                </select>
+              </div>
+              <fieldset class="mb-3">
+                <legend class="form-label fs-6">Tipo de tarjeta</legend>
+                <div class="d-flex flex-wrap gap-2">
+                  <label class="opcion-pago"><input type="checkbox" name="tipoTarjeta" value="Crédito"> Crédito</label>
+                  <label class="opcion-pago"><input type="checkbox" name="tipoTarjeta" value="Débito"> Débito</label>
+                  <label class="opcion-pago"><input type="checkbox" name="tipoTarjeta" value="Prepaga"> Prepaga</label>
+                </div>
+              </fieldset>
+              <fieldset class="mb-3">
+                <legend class="form-label fs-6">Marcas que usás</legend>
+                <div class="grid-marcas">
+                  <label class="marca-pago"><input type="checkbox" name="marcaTarjeta" value="Visa"><span>VISA</span></label>
+                  <label class="marca-pago"><input type="checkbox" name="marcaTarjeta" value="Mastercard"><span>mastercard</span></label>
+                  <label class="marca-pago"><input type="checkbox" name="marcaTarjeta" value="American Express"><span>AMEX</span></label>
+                  <label class="marca-pago"><input type="checkbox" name="marcaTarjeta" value="Cabal"><span>Cabal</span></label>
+                </div>
+              </fieldset>
+              <div class="mb-3">
+                <label for="billetera" class="form-label">¿Usás billetera virtual?</label>
+                <select class="form-select" id="billetera"><option value="">No seleccionar</option><option>Mercado Pago</option><option>Ualá</option><option>Personal Pay</option><option>Naranja X</option><option>Otra</option></select>
+              </div>
+              <div id="mensajeMedios" class="aviso mb-3" role="status" aria-live="polite" hidden></div>
+              <button class="btn btn-usd w-100" type="submit">Guardar medios de pago</button>
+            </form>
+          </section>
+          <section class="usd-card" aria-labelledby="tituloPreferencias">
+            <h2 id="tituloPreferencias" class="h4">Preferencias de cálculo</h2>
+            <form id="formPrefs">
+              <div class="form-check form-switch form-switch-grande mb-2">
+                <input class="form-check-input" type="checkbox" role="switch" id="exencion">
+                <label class="form-check-label" for="exencion">Tengo exenciones impositivas</label>
+              </div>
+              <p class="small text-muted-usd mb-3">Si corresponde, la simulación contempla la exención en los medios donde aplica.</p>
+              <div id="mensajePrefs" class="aviso mb-3" role="status" aria-live="polite" hidden></div>
+              <button type="submit" class="btn btn-usd w-100">Guardar preferencias</button>
+            </form>
+          </section>
         </section>
       </div>
     </div>
   </main>
-
   <nav class="bottom-app-nav" aria-label="Navegación de la aplicación">
-    <a href="../index.html" >
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg><span>Calcular</span>
-    </a>
-    <a href="comparativa.html" >
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7"/></svg><span>Comparar</span>
-    </a>
-    <a href="transparencia.html" >
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h8M8 16h5"/></svg><span>Fuentes</span>
-    </a>
-    <a href="perfil.html" aria-current="page">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Perfil</span>
-    </a>
+    <a href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg><span>Calcular</span></a>
+    <a href="comparativa.html"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7"/></svg><span>Comparar</span></a>
+    <a href="transparencia.html"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h8M8 16h5"/></svg><span>Info</span></a>
+    <a href="perfil.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Cuenta</span></a>
   </nav>
-
-  <footer class="pie-usd">
-    <div class="container">
-      <p class="mb-1"><strong>USDecide</strong> · Información orientativa, no es asesoramiento financiero ni impositivo. El importe final puede variar según cada operación.</p>
-      <p class="mb-0">Datos actualizados el <span id="fechaPie"></span> · &copy; <span id="anioPie">2026</span> Equipo USDecide</p>
-    </div>
-  </footer>
-
+  <footer class="pie-usd"><div class="container"><p class="mb-1"><strong>USDecide</strong> · Simulación académica. No ingreses información financiera sensible.</p><p class="mb-0">Datos actualizados el <span id="fechaPie"></span> · &copy; <span id="anioPie">2026</span> Equipo USDecide</p></div></footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-  <script src="../assets/js/data.js"></script>
-  <script src="../assets/js/calculo.js"></script>
-  <script src="../assets/js/main.js"></script>
-  <script src="../assets/js/perfil.js"></script>
+  <script src="../assets/js/data.js"></script><script src="../assets/js/calculo.js"></script><script src="../assets/js/main.js"></script><script src="../assets/js/perfil.js"></script>
 </body>
 </html>
