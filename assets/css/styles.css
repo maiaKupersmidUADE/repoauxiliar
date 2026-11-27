@@ -723,3 +723,18 @@ main .container > .contenedor-angosto > p { color: var(--usd-muted); max-width: 
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+@media (max-width: 767.98px) {
+  .categorias { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .categorias .btn { padding-inline: .35rem; font-size: .82rem; }
+}
+.calculadora-inicio { border-radius: 24px; }
+.calculadora-inicio .input-monto { font-size: 1.45rem; font-weight: 700; color: var(--usd-primary); }
+.calculadora-inicio .form-text { font-size: .8rem; }
+.accordion { --bs-accordion-bg: var(--usd-surface); --bs-accordion-color: var(--usd-ink); --bs-accordion-border-color: rgba(26,77,46,.12); --bs-accordion-btn-focus-box-shadow: 0 0 0 .2rem rgba(142,172,141,.35); --bs-accordion-active-bg: #d7dfcb; --bs-accordion-active-color: var(--usd-primary); border-radius: 16px; overflow: hidden; }
+.accordion-button { min-height: 58px; font-family: var(--usd-font-head); font-weight: 600; }
+.accordion-body { line-height: 1.65; }
+.tarjeta-guardada { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+.fuente-item a { display:inline-flex; margin-bottom:.35rem; }
+.detalle-fila { display:block; margin-top:.2rem; color:var(--usd-muted); font-size:.82rem; font-weight:400; }
+.fila-total th, .fila-total td { border-top:2px solid var(--usd-primary); font-weight:700; color:var(--usd-primary); }
