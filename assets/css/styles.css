@@ -741,3 +741,28 @@ main .container > .contenedor-angosto > p { color: var(--usd-muted); max-width: 
 
 .navbar-usd { position: sticky; top: 0; z-index: 1020; }
 #mensajeInicio { color: var(--usd-danger); border-left-color: var(--usd-danger); }
+
+
+/* Cuenta demo y preferencias de pago sin información sensible */
+.cuenta-card { max-width: 560px; margin-inline: auto; }
+.opcion-pago {
+  display: inline-flex; align-items: center; gap: .5rem; min-height: 46px;
+  padding: .55rem .85rem; border: 1px solid var(--usd-border);
+  border-radius: 12px; background: var(--usd-surface); font-weight: 600;
+}
+.opcion-pago input, .marca-pago input { accent-color: var(--usd-primary); }
+.grid-marcas { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .65rem; }
+.marca-pago {
+  display: flex; align-items: center; gap: .55rem; min-height: 58px;
+  padding: .65rem .8rem; border: 1px solid var(--usd-border);
+  border-radius: 13px; background: var(--usd-surface); cursor: pointer;
+}
+.marca-pago span { font-family: var(--usd-font-head); font-weight: 700; color: var(--usd-primary); }
+.paso-info { display: flex; align-items: flex-start; gap: 1rem; padding-block: .9rem; border-bottom: 1px solid rgba(26,77,46,.1); }
+.paso-info:last-child { border-bottom: 0; padding-bottom: 0; }
+.paso-info > span { display: grid; place-items: center; flex: 0 0 40px; height: 40px; border-radius: 12px; background: #d7dfcb; color: var(--usd-primary); font-family: var(--usd-font-head); font-weight: 700; }
+[hidden] { display: none !important; }
+@media (max-width: 767.98px) {
+  .grid-marcas { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .cuenta-card { padding: 1.15rem; }
+}
