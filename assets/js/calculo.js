@@ -140,7 +140,11 @@
     var p = leer(window.localStorage, CLAVE_PREFS) || {};
     return {
       exencion: p.exencion === true,
-      tarjetas: Array.isArray(p.tarjetas) ? p.tarjetas : []
+      tarjetas: Array.isArray(p.tarjetas) ? p.tarjetas : [],
+      banco: p.banco || "",
+      billetera: p.billetera || "",
+      tipoTarjeta: Array.isArray(p.tipoTarjeta) ? p.tipoTarjeta : [],
+      marcaTarjeta: Array.isArray(p.marcaTarjeta) ? p.marcaTarjeta : []
     };
   }
 
