@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Transparencia y fuentes | USDecide</title>
-  <meta name="description" content="Fecha de actualización, fuentes oficiales y aviso legal de USDecide.">
+  <title>Información | USDecide</title>
+  <meta name="description" content="Cómo funciona USDecide, de dónde salen los datos y cuáles son sus límites.">
   <meta name="theme-color" content="#1A4D2E">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,11 +38,27 @@
   <main id="contenido">
     <div class="container py-4">
       <div class="contenedor-angosto">
-        <h1 class="mb-2">Transparencia y fuentes</h1>
-        <p class="mb-4">Queremos que sepas de dónde sale cada dato y qué tan actualizado está.</p>
+        <p class="eyebrow">CENTRO DE INFORMACIÓN</p>
+        <h1 class="mb-2">Todo más claro.</h1>
+        <p class="mb-4">Cómo usar USDecide, cómo se calculan los resultados y de dónde salen los datos.</p>
+
+        <section class="usd-card mb-4" aria-labelledby="titulo-como">
+          <h2 id="titulo-como" class="h4">Cómo funciona</h2>
+          <div class="paso-info"><span>01</span><div><strong>Ingresá el precio</strong><p class="mb-0 small text-muted-usd">Escribí cuánto cuesta en dólares y elegí el tipo de compra.</p></div></div>
+          <div class="paso-info"><span>02</span><div><strong>Compará medios de pago</strong><p class="mb-0 small text-muted-usd">Ordenamos las alternativas según el costo estimado en pesos.</p></div></div>
+          <div class="paso-info"><span>03</span><div><strong>Revisá el detalle</strong><p class="mb-0 small text-muted-usd">Podés abrir el desglose para entender cada impuesto y comisión.</p></div></div>
+        </section>
+        <section class="usd-card mb-4" aria-labelledby="titulo-preguntas">
+          <h2 id="titulo-preguntas" class="h4 mb-3">Preguntas frecuentes</h2>
+          <div class="accordion" id="faqInfo">
+            <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pregunta1" aria-expanded="false" aria-controls="pregunta1">¿El resultado es exacto?</button></h3><div id="pregunta1" class="accordion-collapse collapse" data-bs-parent="#faqInfo"><div class="accordion-body">No. Es una simulación orientativa con valores de demostración. El importe real puede variar según la fecha y las condiciones de cada entidad.</div></div></div>
+            <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pregunta2" aria-expanded="false" aria-controls="pregunta2">¿Tengo que ingresar los datos de mi tarjeta?</button></h3><div id="pregunta2" class="accordion-collapse collapse" data-bs-parent="#faqInfo"><div class="accordion-body">No. Solo podés seleccionar banco, tipo y marca de tarjeta. Nunca solicitamos número, vencimiento ni código de seguridad.</div></div></div>
+            <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pregunta3" aria-expanded="false" aria-controls="pregunta3">¿Se guardan mis preferencias?</button></h3><div id="pregunta3" class="accordion-collapse collapse" data-bs-parent="#faqInfo"><div class="accordion-body">En esta demo quedan guardadas localmente en el navegador. No existe una cuenta real ni sincronización entre dispositivos.</div></div></div>
+          </div>
+        </section>
 
         <section class="usd-card mb-4" aria-labelledby="titulo-vigencia">
-          <h2 id="titulo-vigencia" class="h4">Última actualización</h2>
+          <h2 id="titulo-vigencia" class="h4">Datos utilizados</h2>
           <p class="ejemplo-numero mb-1" id="fechaActualizacion"></p>
           <p class="mb-3" id="cotizacionVigente"></p>
           <h3 class="h6">Sobre los valores de demostración</h3>
@@ -50,16 +66,16 @@
         </section>
 
         <section class="usd-card mb-4" aria-labelledby="titulo-fuentes">
-          <h2 id="titulo-fuentes" class="h4">Fuentes oficiales de referencia</h2>
+          <h2 id="titulo-fuentes" class="h4">Fuentes de referencia</h2>
           <ul class="lista-limpia" id="listaFuentes"></ul>
         </section>
 
         <section class="usd-card" aria-labelledby="titulo-legal">
-          <h2 id="titulo-legal" class="h4">Aviso legal</h2>
+          <h2 id="titulo-legal" class="h4">Aviso legal y privacidad</h2>
           <h3 class="h6">Es información orientativa</h3>
-          <p>USDecide es una herramienta informativa. No es asesoramiento financiero ni impositivo y los resultados no son vinculantes.</p>
+          <p>USDecide es una simulación académica e informativa. No es asesoramiento financiero ni impositivo y los resultados no son vinculantes.</p>
           <h3 class="h6">Neutralidad</h3>
-          <p class="mb-0">Mostramos todos los medios de pago con los mismos criterios. Ninguna entidad paga para aparecer mejor posicionada.</p>
+          <p class="mb-0">No solicitamos datos sensibles de tarjetas. Las preferencias de la demo se guardan únicamente en el navegador utilizado.</p>
         </section>
       </div>
     </div>
