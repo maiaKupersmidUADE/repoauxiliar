@@ -1,0 +1,616 @@
+/* ==========================================================================
+   USDecide - estilos propios (mobile first)
+   Se carga DESPUÉS de Bootstrap 5.3.8 y sobrescribe sus variables.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens de diseño
+   -------------------------------------------------------------------------- */
+:root {
+  /* Color */
+  --usd-primary: #1a4d2e;        /* verde oscuro: header, CTAs, títulos */
+  --usd-primary-hover: #133a22;
+  --usd-secondary: #8eac8d;      /* verde suave: foco, badges, bordes activos */
+  --usd-ink: #2d2d2d;            /* gris carbón: texto principal */
+  --usd-muted: #475569;          /* gris slate (oscurecido para cumplir 4.5:1) */
+  --usd-bg: #eaddca;             /* crema: fondo general */
+  --usd-surface: #f9f6f0;        /* blanco roto: tarjetas e inputs */
+  --usd-border: #e0e0e0;         /* borde tenue de tarjetas */
+  --usd-input-border: #6b7280;   /* borde de inputs (contraste de componente) */
+  --usd-danger: #9b1c1c;
+
+  /* Tipografía */
+  --usd-font-title: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --usd-font-head: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --usd-font-body: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Espaciado (escala de 4px) */
+  --usd-space-1: 0.25rem;
+  --usd-space-2: 0.5rem;
+  --usd-space-3: 1rem;
+  --usd-space-4: 1.5rem;
+  --usd-space-5: 2rem;
+  --usd-space-6: 3rem;
+
+  /* Forma y elevación */
+  --usd-radius-btn: 8px;
+  --usd-radius-input: 6px;
+  --usd-radius-card: 10px;
+  --usd-shadow-card: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --usd-touch: 48px;             /* altura táctil mínima */
+
+  /* Overrides de variables de Bootstrap */
+  --bs-body-bg: var(--usd-bg);
+  --bs-body-color: var(--usd-ink);
+  --bs-body-font-family: var(--usd-font-body);
+  --bs-body-line-height: 1.5;
+  --bs-border-color: var(--usd-border);
+  --bs-link-color-rgb: 26, 77, 46;
+  --bs-link-hover-color-rgb: 19, 58, 34;
+  --bs-form-invalid-color: var(--usd-danger);
+  --bs-form-invalid-border-color: var(--usd-danger);
+  --bs-form-valid-color: var(--usd-primary);
+  --bs-form-valid-border-color: var(--usd-primary);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+h1 {
+  font-family: var(--usd-font-title);
+  font-weight: 700;
+  color: var(--usd-primary);
+  font-size: calc(1.6rem + 1.2vw);
+  line-height: 1.2;
+}
+
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--usd-font-head);
+  font-weight: 600;
+  color: var(--usd-ink);
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--usd-primary);
+  outline-offset: 2px;
+}
+
+.text-muted-usd {
+  color: var(--usd-muted);
+}
+
+.eyebrow {
+  font-family: var(--usd-font-head);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--usd-muted);
+  margin-bottom: var(--usd-space-2);
+}
+
+.contenedor-angosto {
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--usd-space-3);
+  top: var(--usd-space-2);
+  z-index: 2000;
+  background: var(--usd-surface);
+  color: var(--usd-primary);
+  padding: var(--usd-space-2) var(--usd-space-3);
+  border-radius: var(--usd-radius-btn);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   3. Navegación y pie
+   -------------------------------------------------------------------------- */
+.navbar-usd {
+  background: var(--usd-primary);
+}
+
+.navbar-usd .navbar-brand {
+  font-family: var(--usd-font-title);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: #fff;
+  min-height: var(--usd-touch);
+  display: inline-flex;
+  align-items: center;
+}
+
+.navbar-usd .navbar-brand span {
+  color: var(--usd-secondary);
+}
+
+.navbar-usd .nav-link {
+  color: #fff;
+  min-height: var(--usd-touch);
+  display: flex;
+  align-items: center;
+  font-family: var(--usd-font-head);
+  font-weight: 500;
+}
+
+.navbar-usd .nav-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.navbar-usd .nav-link[aria-current="page"] {
+  font-weight: 700;
+  box-shadow: inset 0 -3px 0 var(--usd-secondary);
+}
+
+.navbar-usd .navbar-toggler {
+  min-width: var(--usd-touch);
+  min-height: var(--usd-touch);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.navbar-usd :focus-visible,
+.pie-usd :focus-visible {
+  outline-color: #fff;
+}
+
+.pie-usd {
+  background: var(--usd-primary);
+  color: #fff;
+  margin-top: var(--usd-space-6);
+  padding-block: var(--usd-space-4);
+  font-size: 0.9rem;
+}
+
+.pie-usd a {
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   4. Botones (componente CTA)
+   -------------------------------------------------------------------------- */
+.btn-usd,
+.btn-usd-outline,
+.btn-usd-claro {
+  --bs-btn-border-radius: var(--usd-radius-btn);
+  --bs-btn-padding-y: 0.75rem;
+  --bs-btn-padding-x: 1.5rem;
+  --bs-btn-border-width: 2px;
+  --bs-btn-focus-shadow-rgb: 142, 172, 141;
+  min-height: var(--usd-touch);
+  font-family: var(--usd-font-head);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.btn-usd {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--usd-primary);
+  --bs-btn-border-color: var(--usd-primary);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--usd-primary-hover);
+  --bs-btn-hover-border-color: var(--usd-primary-hover);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #0f2f1b;
+  --bs-btn-active-border-color: #0f2f1b;
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--usd-primary);
+  --bs-btn-disabled-border-color: var(--usd-primary);
+}
+
+.btn-usd-outline {
+  --bs-btn-color: var(--usd-primary);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--usd-primary);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--usd-primary);
+  --bs-btn-hover-border-color: var(--usd-primary);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--usd-primary);
+  --bs-btn-active-border-color: var(--usd-primary);
+}
+
+/* Botón para fondos verdes oscuros */
+.btn-usd-claro {
+  --bs-btn-color: var(--usd-primary);
+  --bs-btn-bg: var(--usd-surface);
+  --bs-btn-border-color: var(--usd-surface);
+  --bs-btn-hover-color: var(--usd-primary);
+  --bs-btn-hover-bg: #fff;
+  --bs-btn-hover-border-color: #fff;
+  --bs-btn-active-color: var(--usd-primary);
+  --bs-btn-active-bg: #fff;
+  --bs-btn-active-border-color: #fff;
+}
+
+.btn-usd-claro:focus-visible {
+  outline-color: #fff;
+}
+
+.btn-sm.btn-usd-outline {
+  min-height: 40px;
+  --bs-btn-padding-x: 1rem;
+  --bs-btn-padding-y: 0.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   5. Formularios
+   -------------------------------------------------------------------------- */
+.form-control,
+.form-select,
+.input-group-text {
+  min-height: var(--usd-touch);
+  border-radius: var(--usd-radius-input);
+  border: 1px solid var(--usd-input-border);
+  background-color: var(--usd-surface);
+  color: var(--usd-ink);
+}
+
+.input-group > .form-control {
+  border-radius: 0 var(--usd-radius-input) var(--usd-radius-input) 0;
+}
+
+.input-group-text {
+  font-family: var(--usd-font-head);
+  font-weight: 600;
+  border-radius: var(--usd-radius-input) 0 0 var(--usd-radius-input);
+  background-color: var(--usd-bg);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--usd-primary);
+  box-shadow: 0 0 0 0.25rem rgba(142, 172, 141, 0.7);
+  background-color: var(--usd-surface);
+}
+
+.input-monto {
+  font-family: var(--usd-font-head);
+  font-size: 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.form-label,
+legend.form-label {
+  font-family: var(--usd-font-head);
+  font-weight: 600;
+}
+
+.form-text {
+  color: var(--usd-muted);
+}
+
+/* Selector de categorías (pestañas) */
+.categorias {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--usd-space-2);
+}
+
+/* Interruptor (switch) */
+.form-switch-grande .form-check-input {
+  width: 3.25rem;
+  height: 1.75rem;
+  margin-top: 0.1rem;
+  border: 2px solid var(--usd-input-border);
+  background-color: #d9d9d9;
+  cursor: pointer;
+}
+
+.form-switch-grande .form-check-input:checked {
+  background-color: var(--usd-primary);
+  border-color: var(--usd-primary);
+}
+
+.form-switch-grande .form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(142, 172, 141, 0.7);
+}
+
+.form-switch-grande .form-check-label {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   6. Tarjetas, badges y avisos
+   -------------------------------------------------------------------------- */
+.usd-card {
+  background: var(--usd-surface);
+  border: 1px solid var(--usd-border);
+  border-radius: var(--usd-radius-card);
+  box-shadow: var(--usd-shadow-card);
+  padding: var(--usd-space-4);
+}
+
+.medio-card + .medio-card {
+  margin-top: var(--usd-space-3);
+}
+
+.medio-card-top {
+  background: var(--usd-primary);
+  border-color: var(--usd-primary);
+  color: #fff;
+}
+
+.medio-card-top h3 {
+  color: #fff;
+}
+
+.medio-desc {
+  color: var(--usd-muted);
+  font-size: 0.95rem;
+}
+
+.medio-card-top .medio-desc {
+  color: #e8efe9;
+}
+
+.total-ars {
+  font-family: var(--usd-font-head);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.badge-usd {
+  display: inline-block;
+  background: var(--usd-secondary);
+  color: var(--usd-ink);
+  border-radius: 999px;
+  padding: 0.25rem 0.85rem;
+  font-family: var(--usd-font-head);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.aviso {
+  background: var(--usd-surface);
+  border: 1px solid var(--usd-border);
+  border-left: 5px solid var(--usd-primary);
+  border-radius: var(--usd-radius-input);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+}
+
+.aviso-ok {
+  border-left-color: var(--usd-primary);
+}
+
+.aviso-error {
+  border-left-color: var(--usd-danger);
+  color: var(--usd-danger);
+  font-weight: 600;
+}
+
+.bloque-ahorro {
+  background: var(--usd-surface);
+  border: 2px solid var(--usd-primary);
+  border-radius: var(--usd-radius-card);
+  padding: var(--usd-space-4);
+  margin-top: var(--usd-space-4);
+}
+
+.bloque-ahorro .monto {
+  font-family: var(--usd-font-head);
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--usd-primary);
+}
+
+/* --------------------------------------------------------------------------
+   7. Inicio
+   -------------------------------------------------------------------------- */
+.hero {
+  padding-block: var(--usd-space-5) var(--usd-space-4);
+}
+
+.hero .lead {
+  font-size: 1.1rem;
+  max-width: 36rem;
+}
+
+.hero-panel {
+  background: var(--usd-primary);
+  border-radius: 16px;
+  padding: var(--usd-space-4);
+}
+
+.hero-panel svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.seccion {
+  padding-block: var(--usd-space-5);
+}
+
+.icono-feature {
+  width: 48px;
+  height: 48px;
+  color: var(--usd-primary);
+  margin-bottom: var(--usd-space-2);
+}
+
+.icono-feature * {
+  stroke-width: 1.5;
+}
+
+.ejemplo-numero {
+  font-family: var(--usd-font-head);
+  font-weight: 700;
+  font-size: 1.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   8. Desglose, fuentes y perfil
+   -------------------------------------------------------------------------- */
+.tabla-desglose {
+  --bs-table-bg: transparent;
+  margin-bottom: 0;
+}
+
+.tabla-desglose th {
+  font-weight: 600;
+  font-family: var(--usd-font-body);
+  padding-block: 0.85rem;
+}
+
+.tabla-desglose .detalle-fila {
+  display: block;
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--usd-muted);
+}
+
+.tabla-desglose .importe {
+  text-align: right;
+  white-space: nowrap;
+  font-family: var(--usd-font-head);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  vertical-align: middle;
+}
+
+.tabla-desglose .fila-total th,
+.tabla-desglose .fila-total td {
+  border-top: 2px solid var(--usd-primary);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--usd-primary);
+}
+
+.otro-medio {
+  min-height: var(--usd-touch);
+  display: flex;
+  align-items: center;
+  background: var(--usd-surface);
+  color: var(--usd-ink);
+}
+
+.otro-medio.active {
+  background: var(--usd-primary);
+  border-color: var(--usd-primary);
+  color: #fff;
+}
+
+.fuente-item {
+  padding-block: var(--usd-space-3);
+  border-bottom: 1px solid var(--usd-border);
+}
+
+.fuente-item:last-child {
+  border-bottom: 0;
+}
+
+.lista-limpia {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.tarjeta-guardada {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--usd-space-3);
+  padding-block: var(--usd-space-3);
+  border-bottom: 1px solid var(--usd-border);
+}
+
+.tarjeta-guardada:last-child {
+  border-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   9. Acordeón (Cómo funciona)
+   -------------------------------------------------------------------------- */
+.accordion {
+  --bs-accordion-bg: var(--usd-surface);
+  --bs-accordion-border-color: var(--usd-border);
+  --bs-accordion-border-radius: var(--usd-radius-card);
+  --bs-accordion-btn-bg: var(--usd-surface);
+  --bs-accordion-active-bg: var(--usd-surface);
+  --bs-accordion-active-color: var(--usd-primary);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(142, 172, 141, 0.7);
+}
+
+.accordion-button {
+  min-height: var(--usd-touch);
+  font-family: var(--usd-font-head);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   10. Tablet (≥768px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .categorias {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero {
+    padding-block: var(--usd-space-6) var(--usd-space-5);
+  }
+
+  .usd-card {
+    padding: var(--usd-space-5);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. Desktop (≥1024px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  .navbar-usd .nav-link {
+    padding-inline: var(--usd-space-3);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. Movimiento reducido
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
