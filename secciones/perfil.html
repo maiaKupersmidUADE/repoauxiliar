@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi perfil | USDecide</title>
+  <meta name="description" content="Guardá tus tarjetas y ajustá el cálculo según tus exenciones impositivas.">
+  <meta name="theme-color" content="#1A4D2E">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&amp;family=Open+Sans:wght@400;600&amp;family=Poppins:wght@700&amp;display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <a class="skip-link visually-hidden-focusable" href="#contenido">Saltar al contenido</a>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-usd" data-bs-theme="dark" aria-label="Navegación principal">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">US<span>Decide</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir o cerrar el menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="calculadora.html">Calculadora</a></li>
+          <li class="nav-item"><a class="nav-link" href="comparativa.html">Comparativa</a></li>
+          <li class="nav-item"><a class="nav-link" href="como-funciona.html">Cómo funciona</a></li>
+          <li class="nav-item"><a class="nav-link" href="transparencia.html">Transparencia</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html" aria-current="page">Mi perfil</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <div class="container py-4">
+      <div class="contenedor-angosto">
+        <h1 class="mb-2">A tu manera</h1>
+        <p class="mb-4">Guardá los medios de pago que usás y ajustá el cálculo a tu situación. Todo queda guardado solo en este navegador.</p>
+
+        <section class="usd-card mb-4" aria-labelledby="titulo-tarjetas">
+          <h2 id="titulo-tarjetas" class="h4">Tus tarjetas</h2>
+          <p class="small text-muted-usd">Solo guardamos el alias y los últimos 4 dígitos. Nunca el número completo ni el CVV.</p>
+
+          <p id="sinTarjetas" class="mb-3">Todavía no guardaste ninguna tarjeta.</p>
+          <ul class="lista-limpia mb-4" id="listaTarjetas" aria-live="polite"></ul>
+
+          <h3 class="h5">Agregar una tarjeta</h3>
+          <form id="formTarjeta" novalidate>
+            <div class="mb-3">
+              <label for="alias" class="form-label">Alias</label>
+              <input type="text" class="form-control" id="alias" name="alias" maxlength="20" autocomplete="off" required aria-describedby="error-alias">
+              <div class="invalid-feedback" id="error-alias"></div>
+            </div>
+            <div class="mb-3">
+              <label for="tipo" class="form-label">Tipo de tarjeta</label>
+              <select class="form-select" id="tipo" name="tipo" required aria-describedby="error-tipo">
+                <option value="" selected>Elegí una opción</option>
+                <option value="credito">Crédito</option>
+                <option value="debito">Débito</option>
+                <option value="prepaga">Prepaga</option>
+                <option value="billetera">Billetera virtual</option>
+              </select>
+              <div class="invalid-feedback" id="error-tipo"></div>
+            </div>
+            <div class="mb-3">
+              <label for="ultimos4" class="form-label">Últimos 4 dígitos</label>
+              <input type="text" class="form-control" id="ultimos4" name="ultimos4" inputmode="numeric" maxlength="4" autocomplete="off" required aria-describedby="ayuda-ultimos4 error-ultimos4">
+              <div id="ayuda-ultimos4" class="form-text">Solo los últimos 4 números, sin espacios.</div>
+              <div class="invalid-feedback" id="error-ultimos4"></div>
+            </div>
+            <div id="mensajeTarjeta" role="status" aria-live="polite" hidden></div>
+            <button type="submit" class="btn btn-usd w-100">Agregar tarjeta</button>
+          </form>
+        </section>
+
+        <section class="usd-card" aria-labelledby="titulo-prefs">
+          <h2 id="titulo-prefs" class="h4">Preferencias de cálculo</h2>
+          <form id="formPrefs">
+            <div class="form-check form-switch form-switch-grande mb-2">
+              <input class="form-check-input" type="checkbox" role="switch" id="exencion" aria-describedby="ayuda-exencion">
+              <label class="form-check-label" for="exencion">Tengo exenciones impositivas</label>
+            </div>
+            <p id="ayuda-exencion" class="small text-muted-usd mb-3">Si lo activás, el cálculo no suma percepciones en los medios donde corresponden.</p>
+            <div id="mensajePrefs" role="status" aria-live="polite" hidden></div>
+            <button type="submit" class="btn btn-usd w-100">Guardar preferencias</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="pie-usd">
+    <div class="container">
+      <p class="mb-1"><strong>USDecide</strong> · Información orientativa, no es asesoramiento financiero ni impositivo. El importe final puede variar según cada operación.</p>
+      <p class="mb-0">Datos actualizados el <span id="fechaPie"></span> · &copy; <span id="anioPie">2026</span> Equipo USDecide</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/calculo.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/perfil.js"></script>
+</body>
+</html>
