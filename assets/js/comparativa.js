@@ -45,6 +45,21 @@
     tarjeta.appendChild(titulo);
     tarjeta.appendChild(U.el("p", "medio-desc mb-2", r.medio.descripcion));
 
+    var mediosPreferidos = U.leerPreferencias();
+    var tipoCoincide = (r.medio.id === "debito" && mediosPreferidos.tipoTarjeta && mediosPreferidos.tipoTarjeta.indexOf("Débito") !== -1) ||
+      (r.medio.id === "credito" && mediosPreferidos.tipoTarjeta && mediosPreferidos.tipoTarjeta.indexOf("Crédito") !== -1) ||
+      (r.medio.id === "billetera" && mediosPreferidos.billetera);
+    var marca = mediosPreferidos.marcaTarjeta && mediosPreferidos.marcaTarjeta.length
+      ? mediosPreferidos.marcaTarjeta.join(" · ") : "";
+    var banco = mediosPreferidos.banco || "";
+    if (tipoCoincide) {
+      var detallePreferido = r.medio.id === "billetera"
+        ? mediosPreferidos.billetera
+        : [banco, marca].filter(Boolean).join(" · ");
+      tarjeta.appendChild(U.el("span", "preferencia-coincide", "COINCIDE CON TUS PREFERENCIAS"));
+      if (detallePreferido) tarjeta.appendChild(U.el("p", "small medio-desc mt-2 mb-2", detallePreferido));
+    }
+
     var total = U.el("p", "total-ars mb-0", U.formatearARS(r.total));
     tarjeta.appendChild(total);
     tarjeta.appendChild(U.el("p", "medio-desc mb-3", "Costo final estimado"));
