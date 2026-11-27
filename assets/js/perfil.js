@@ -114,8 +114,9 @@
   document.getElementById("formPrefs").addEventListener("submit", function (evento) {
     evento.preventDefault();
     prefs.exencion = document.getElementById("exencion").checked;
-    aviso(document.getElementById("mensajePrefs"), U.guardarPreferencias(prefs) ? "ok" : "error",
-      "Preferencias de cálculo actualizadas.");
+    var guardado = U.guardarPreferencias(prefs);
+    aviso(document.getElementById("mensajePrefs"), guardado ? "ok" : "error",
+      guardado ? "Preferencias de cálculo actualizadas." : "No se pudieron guardar las preferencias.");
   });
   try { sesionActiva = sessionStorage.getItem("usdecide.sesion.demo") === "activa"; } catch (e) {}
   if (sesionActiva && cuenta && cuenta.nombre && cuenta.email) mostrarPanel();
