@@ -738,3 +738,6 @@ main .container > .contenedor-angosto > p { color: var(--usd-muted); max-width: 
 .fuente-item a { display:inline-flex; margin-bottom:.35rem; }
 .detalle-fila { display:block; margin-top:.2rem; color:var(--usd-muted); font-size:.82rem; font-weight:400; }
 .fila-total th, .fila-total td { border-top:2px solid var(--usd-primary); font-weight:700; color:var(--usd-primary); }
+
+.navbar-usd { position: sticky; top: 0; z-index: 1020; }
+#mensajeInicio { color: var(--usd-danger); border-left-color: var(--usd-danger); }
